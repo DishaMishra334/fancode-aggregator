@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FanCode Aggregator - Technical Reference Manual</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .cover {
+      page-break-after: always;
+      padding: 50px 30px;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      margin-top: 30px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    }
+    .cover h1 {
+      font-size: 26px;
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .cover .subtitle {
+      font-size: 15px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+    .page {
+      page-break-after: always;
+      padding-top: 8px;
+    }
+    .page:last-child {
+      page-break-after: avoid;
+    }
+    h2 {
+      font-size: 16px;
+      color: #0f172a;
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 4px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 13px;
+      color: #1e293b;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 10px;
+      padding-left: 18px;
+    }
+    li {
+      margin-bottom: 4px;
+      color: #334155;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 5px 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    code {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 11px;
+    }
+    pre {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      line-height: 1.4;
+      overflow-x: auto;
+      margin-top: 6px;
+      margin-bottom: 10px;
+    }
+    .callout {
+      border-left: 3px solid #0284c7;
+      background-color: #f0f9ff;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      font-size: 11.5px;
+    }
+    .badge-pass {
+      display: inline-block;
+      background: #10b981;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="badge">Technical Reference Manual</div>
+    <h1>Live Sports Match Data Aggregator</h1>
+    <div class="subtitle">Complete Class, Service &amp; Controller Specification</div>
+    <div style="max-width: 500px; margin: 0 auto; text-align: left; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 14px;">
+      <p style="margin: 3px 0;"><strong>Scope:</strong> Exhaustive architectural mapping of all 34 Java classes</p>
+      <p style="margin: 3px 0;"><strong>Alignment:</strong> 1-to-1 fulfillment of the FanCode engineering brief</p>
+      <p style="margin: 3px 0;"><strong>Architecture:</strong> Controller &rarr; Service &rarr; Repository &rarr; Entity</p>
+      <p style="margin: 3px 0;"><strong>Verification:</strong> 11/11 Automated Tests Passing</p>
+    </div>
+    <div style="font-size: 12px; color: #64748b; margin-top: 30px;">
+      Author: Deepak Agrawal &bull; Date: November 2026<br>
+      Repository: <code>C:\Users\Deepak\OneDrive\Desktop\fancode-aggregator</code>
+    </div>
+  </div>
+
+  <!-- CHAPTER 1: REQUIREMENT TRACEABILITY MATRIX -->
+  <div class="page">
+    <h2>1. Requirement Traceability Matrix</h2>
+    <p>
+      This matrix maps every specific requirement from the FanCode prompt to the exact Java classes and methods that satisfy it:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Requirement from Specification</th>
+          <th>Implementing Class(es)</th>
+          <th>Key Method(s)</th>
+          <th>Invariant Enforced</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Push Webhook Ingestion</strong></td>
+          <td><code>WebhookController</code><br><code>AggregatorService</code></td>
+          <td><code>handleProviderAWebhook()</code><br><code>processPushEvent()</code></td>
+          <td>Accepts JSON payload with <code>deliveryId</code>, <code>occurredAt</code>, <code>snapshot</code>, and <code>commentary</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>Delivery Idempotency</strong></td>
+          <td><code>ProviderDeliveryEntity</code><br><code>ProviderDeliveryRepository</code></td>
+          <td><code>existsByProviderAndDeliveryId()</code></td>
+          <td>Duplicate <code>(provider, deliveryId)</code> returns <code>duplicate_ignored</code> with zero database modifications.</td>
+        </tr>
+        <tr>
+          <td><strong>Snapshot Strict Monotonicity</strong></td>
+          <td><code>ProviderSnapshotEntity</code><br><code>AggregatorService</code></td>
+          <td><code>isCandidateStrictlyNewer()</code><br><code>applySnapshotInternal()</code></td>
+          <td>Lexicographical check: <code>(5,1) &gt; (4,9)</code>, <code>(4,2) &gt; (4,1)</code>. Older snapshots rejected without throwing.</td>
+        </tr>
+        <tr>
+          <td><strong>Commentary Sequence Ordering</strong></td>
+          <td><code>ProviderCommentaryEntity</code><br><code>ProviderCommentaryRepository</code></td>
+          <td><code>findByMatchIdAndProviderOrderBySequenceAsc()</code></td>
+          <td>Balls ordered strictly by provider <code>sequence</code>, not arrival time. Missing sequence gaps are supported.</td>
+        </tr>
+        <tr>
+          <td><strong>Commentary Revisions / Corrections</strong></td>
+          <td><code>ProviderCommentaryEntity</code><br><code>AggregatorService</code></td>
+          <td><code>applyCommentaryInternal()</code></td>
+          <td>Higher revision replaces text for stable <code>ballId</code>. Equal/lower revision ignored. Exactly 1 record per ball.</td>
+        </tr>
+        <tr>
+          <td><strong>Deterministic Provider Precedence</strong></td>
+          <td><code>AppProperties</code><br><code>AggregatorService</code></td>
+          <td><code>determineActiveSnapshot()</code><br><code>determineActiveProvider()</code></td>
+          <td>Primary provider (<code>provider-a</code>) prioritized; falls back to secondary (<code>provider-b</code>). Sequences never compared.</td>
+        </tr>
+        <tr>
+          <td><strong>Polling Provider B with 503 Resilience</strong></td>
+          <td><code>ProviderBPollerService</code><br><code>MockProviderBService</code></td>
+          <td><code>pollOnce()</code><br><code>scheduledPoll()</code></td>
+          <td>Catches HTTP 503 and preserves last good state. Repeated identical polls create no duplicate balls.</td>
+        </tr>
+        <tr>
+          <td><strong>Push Worked Example Generator</strong></td>
+          <td><code>ProviderAGeneratorService</code><br><code>MockProviderAController</code></td>
+          <td><code>runWorkedPushScenario()</code><br><code>playWorkedScenario()</code></td>
+          <td>Deterministic execution of the 6-step prompt timeline (d1, d2, d2 duplicate, d4, d3 late, d5 correction).</td>
+        </tr>
+        <tr>
+          <td><strong>Client Read APIs</strong></td>
+          <td><code>ClientApiController</code></td>
+          <td><code>GET /matches</code>, <code>GET /score</code>, <code>GET /commentary</code></td>
+          <td>Returns normalized views. Unknown match returns structured HTTP 404 with error payload.</td>
+        </tr>
+        <tr>
+          <td><strong>Durable Storage Across Restarts</strong></td>
+          <td><code>application.yml</code><br>All JPA Entities</td>
+          <td><code>jdbc:h2:file:./data/fancodedb;DB_CLOSE_DELAY=-1</code></td>
+          <td>All matches, scores, and commentary survive JVM restarts and system reboots.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHAPTER 2: CONTROLLERS & WEB LAYER -->
+  <div class="page">
+    <h2>2. Controllers Layer (`com.fancode.aggregator.controller`)</h2>
+
+    <h3>2.1 `ClientApiController`</h3>
+    <p>
+      Serves all read queries requested by client applications. Operates strictly in read-only mode (<code>@Transactional(readOnly = true)</code>).
+    </p>
+    <ul>
+      <li><code>GET /matches</code>: Iterates through all matches in the database. Resolves the active provider snapshot for each and returns a compact summary list (e.g. <code>[{"id": "match-1001", "status": "live", "summaryScore": "10/1 (1.1)"}]</code>).</li>
+      <li><code>GET /matches/{id}</code>: Retrieves full details of a specific match, including canonical ID, current status, active provider, and complete scoreboard object. Throws <code>ResourceNotFoundException</code> if match does not exist.</li>
+      <li><code>GET /matches/{id}/score</code>: Returns the authoritative scoreboard object: status, innings, runs, wickets, overs string, and formatted score (<code>"10/1"</code>).</li>
+      <li><code>GET /matches/{id}/commentary</code>: Returns all commentary balls from the active provider, sorted chronologically by sequence number.</li>
+    </ul>
+
+    <h3>2.2 `WebhookController`</h3>
+    <p>
+      The ingestion entry point for Provider A push webhook events.
+    </p>
+    <ul>
+      <li><code>POST /api/webhooks/provider-a</code>: Accepts a <code>PushEventRequest</code> body. Delegates to <code>AggregatorService.processPushEvent(...)</code> and returns a <code>PushEventResponse</code> with HTTP 200.</li>
+    </ul>
+
+    <h3>2.3 `MockProviderAController`</h3>
+    <p>
+      Exposes an operational trigger to run the exact worked push scenario without needing an external script.
+    </p>
+    <ul>
+      <li><code>POST /mock/provider-a/play</code>: Invokes <code>ProviderAGeneratorService.runWorkedPushScenario(matchId)</code> and returns the array of 6 step execution responses.</li>
+    </ul>
+
+    <h3>2.4 `MockProviderBController`</h3>
+    <p>
+      Simulates Provider B's polling endpoints as required by the assignment brief.
+    </p>
+    <ul>
+      <li><code>GET /provider/matches/{id}/score</code>: Emits the current Provider B score snapshot.</li>
+      <li><code>GET /provider/matches/{id}/commentary</code>: Emits the full array of commentary items.</li>
+      <li><code>POST /mock/provider-b/scenario/{name}</code>: Alters the mock state machine (<code>initial</code>, <code>unchanged</code>, <code>newer_score</code>, <code>new_ball</code>, <code>stale</code>, <code>error_503</code>).</li>
+      <li><code>POST /mock/provider-b/poll</code>: Triggers an on-demand poll cycle immediately.</li>
+    </ul>
+  </div>
+
+  <!-- CHAPTER 3: SERVICES & BUSINESS LOGIC -->
+  <div class="page">
+    <h2>3. Core Services Layer (`com.fancode.aggregator.service`)</h2>
+
+    <h3>3.1 `AggregatorService`</h3>
+    <p>
+      The core domain engine. Handles all ordering, idempotency, revision updates, and provider precedence.
+    </p>
+    <ul>
+      <li><code>processPushEvent(PushEventRequest event)</code>:
+        Synchronizes on an ingestion lock. Evaluates <code>deliveryRepository.existsByProviderAndDeliveryId()</code>. If duplicate, returns <code>duplicate_ignored</code>. Otherwise, records delivery ID, resolves match ID, and calls internal snapshot and commentary processors.
+      </li>
+      <li><code>applySnapshotInternal(...)</code>:
+        Compares incoming snapshot <code>(seq, rev)</code> against stored snapshot using <code>ProviderSnapshotEntity.isCandidateStrictlyNewer()</code>. If strictly newer, updates the provider snapshot row and updates match precedence. If older or equal, skips update.
+      </li>
+      <li><code>applyCommentaryInternal(...)</code>:
+        Looks up commentary by <code>(matchId, provider, ballId)</code>. If ball exists and <code>candidate.rev &gt; stored.rev</code>, updates text in-place. If ball does not exist, inserts a new entity. Equal or lower revisions are discarded.
+      </li>
+      <li><code>determineActiveSnapshot(matchId)</code> &amp; <code>determineActiveProvider(matchId)</code>:
+        Implements primary provider precedence (<code>provider-a</code> priority, fallback to <code>provider-b</code>). <strong>Never compares sequence numbers across providers.</strong>
+      </li>
+      <li><code>getMatchCommentary(matchId)</code>:
+        Queries <code>commentaryRepository.findByMatchIdAndProviderOrderBySequenceAsc()</code>. Guarantees that late balls arriving out of order are displayed in their proper sequential order.
+      </li>
+    </ul>
+
+    <h3>3.2 `ProviderAGeneratorService`</h3>
+    <p>
+      Fulfills the requirement that the push generator must deterministically reproduce all 6 steps from the prompt:
+      Step 1 (d1 initial), Step 2 (d2 out), Step 3 (d2 duplicate), Step 4 (d4 gap arrival), Step 5 (d3 late older snapshot), and Step 6 (d5 revision 2 correction).
+    </p>
+
+    <h3>3.3 `ProviderBPollerService`</h3>
+    <p>
+      Manages scheduled background polling (via Spring <code>@Scheduled</code>) and on-demand polling. Wraps calls in try-catch to intercept <code>MockProviderUnavailableException</code> (503 Service Unavailable), logging the outage while leaving stored match data untouched.
+    </p>
+
+    <h3>3.4 `MockProviderBService`</h3>
+    <p>
+      Configurable in-memory state machine implementing Provider B's score and commentary data feeds with full support for unchanged responses, new balls, newer scores, stale tuples, and HTTP 503 errors.
+    </p>
+  </div>
+
+  <!-- CHAPTER 4: ENTITIES, REPOSITORIES & DTOS -->
+  <div class="page">
+    <h2>4. Entities, Repositories &amp; DTOs</h2>
+
+    <h3>Entities (`com.fancode.aggregator.entity`)</h3>
+    <ul>
+      <li><strong>`MatchEntity`</strong>: Represents the match known to clients (<code>match-1001</code>). Stores <code>status</code> and <code>active_provider</code>.</li>
+      <li><strong>`ProviderDeliveryEntity`</strong>: Stores <code>provider</code> and <code>deliveryId</code> with a compound unique key for push message deduplication.</li>
+      <li><strong>`ProviderSnapshotEntity`</strong>: Stores the latest scoreboard tuple <code>(sequence, revision, runs, wickets, overs)</code> per provider. Compound unique constraint on <code>(match_id, provider)</code>.</li>
+      <li><strong>`ProviderCommentaryEntity`</strong>: Stores individual balls with stable <code>ballId</code>, display <code>sequence</code>, and <code>revision</code>. Indexed on <code>(match_id, provider, sequence_num)</code> for fast chronological retrieval.</li>
+    </ul>
+
+    <h3>Repositories (`com.fancode.aggregator.repository`)</h3>
+    <p>
+      Spring Data JPA interfaces generating type-safe SQL queries automatically:
+    </p>
+    <ul>
+      <li><code>MatchRepository</code>: CRUD operations on canonical matches.</li>
+      <li><code>ProviderDeliveryRepository</code>: Fast existence queries via <code>existsByProviderAndDeliveryId()</code>.</li>
+      <li><code>ProviderSnapshotRepository</code>: Partitioned scoreboard queries via <code>findByMatchIdAndProvider()</code>.</li>
+      <li><code>ProviderCommentaryRepository</code>: Ball lookup via <code>findByMatchIdAndProviderAndBallId()</code> and ordered queries via <code>findByMatchIdAndProviderOrderBySequenceAsc()</code>.</li>
+    </ul>
+
+    <h3>Data Transfer Objects (`com.fancode.aggregator.dto`)</h3>
+    <p>
+      Implemented as immutable Java 21 <code>record</code> types with Jackson JSON annotations:
+    </p>
+    <ul>
+      <li><code>PushEventRequest</code> / <code>PushEventResponse</code>: Webhook wire protocol.</li>
+      <li><code>SnapshotDto</code> / <code>CommentaryDto</code>: Internal transport objects for scoreboard and commentary items.</li>
+      <li><code>PollScoreResponse</code> / <code>PollCommentaryResponse</code>: Wire payloads for Provider B endpoints.</li>
+      <li><code>MatchSummaryResponse</code>, <code>MatchDetailResponse</code>, <code>ClientScoreResponse</code>, <code>ClientCommentaryItemResponse</code>: Normalized client read representations.</li>
+      <li><code>ErrorResponse</code>: RFC-compliant structured error object.</li>
+    </ul>
+
+    <h3>Exceptions &amp; Handlers</h3>
+    <ul>
+      <li><strong>`ResourceNotFoundException`</strong>: Unchecked exception thrown when querying non-existent match IDs.</li>
+      <li><strong>`GlobalExceptionHandler`</strong>: Annotated with <code>@RestControllerAdvice</code>. Intercepts <code>ResourceNotFoundException</code> and returns HTTP 404 with structured JSON.</li>
+    </ul>
+  </div>
+
+  <!-- CHAPTER 5: AUTOMATED TESTS -->
+  <div class="page">
+    <h2>5. Test Suite Verification &amp; Mapping</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Test Class</th>
+          <th>Test Method</th>
+          <th>Verification Details</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testOrderedIngestion</code></td>
+          <td>Ingests d1 (4/0) then d2 (4/1). Verifies sequential state progression.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testDuplicatePushDelivery</code></td>
+          <td>Sends d1 twice. Verifies second returns <code>duplicate_ignored</code> and DB state is unchanged.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testOlderSnapshotWithLateBallReturnedInSequence</code></td>
+          <td>d4 arrives before d3. Verifies score 10/1 remains active when d3 arrives, while ball b3 is inserted in sequence order.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testCommentaryCorrection</code></td>
+          <td>Ball b2 rev 2 replaces text with "out, review stays out". Sending rev 1 later is ignored.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testRepeatedIdenticalPolls</code></td>
+          <td>Polls Provider B 3 times in unchanged state. Exactly 1 ball exists in DB.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testStalePoll</code></td>
+          <td>Polls sequence 16 (104/2), then stale sequence 10 (80/1). Score remains 104/2.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testProviderErrorLeavesLastGoodState</code></td>
+          <td>Simulates HTTP 503 on Provider B. Poller handles cleanly; last good score is preserved.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>AggregatorIntegrationTests</code></td>
+          <td><code>testFullWorkedPushScenario</code></td>
+          <td>Executes full 6-step prompt timeline. Final score is 10/1, commentary has all 4 balls.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>ClientApiControllerTest</code></td>
+          <td><code>testUnknownMatchReturns404</code></td>
+          <td>Verifies unknown match ID returns HTTP 404 with error JSON.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>ClientApiControllerTest</code></td>
+          <td><code>testWebhookAndClientReadFlow</code></td>
+          <td>Full end-to-end webhook POST and client read query verification.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td><code>DatabaseRestartPersistenceTest</code></td>
+          <td><code>testRestartAgainstSameDatabase</code></td>
+          <td>Boots Spring Context 1, writes data, closes it, boots Context 2 against disk file, verifies 100% data recovery.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top: 14px;">
+      <strong>Summary:</strong> All 34 Java classes cleanly fulfill their architectural responsibilities. The application builds, passes all 11 unit &amp; integration tests with 0 failures, and is fully packaged as a standalone runnable JAR and Docker container.
+    </div>
+  </div>
+
+</body>
+</html>
