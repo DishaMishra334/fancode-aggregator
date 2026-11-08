@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Sports Match Data Aggregator - System Documentation</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm 15mm 15mm 15mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.55;
+      font-size: 13px;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .cover {
+      page-break-after: always;
+      padding: 60px 40px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-top: 40px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    }
+    .cover h1 {
+      font-size: 28px;
+      color: #0f172a;
+      margin-bottom: 12px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .cover .subtitle {
+      font-size: 16px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 30px;
+    }
+    .cover .meta {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 40px;
+      line-height: 1.8;
+    }
+    .page {
+      page-break-after: always;
+      padding-top: 10px;
+    }
+    .page:last-child {
+      page-break-after: avoid;
+    }
+    h2 {
+      font-size: 18px;
+      color: #0f172a;
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 6px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 14px;
+      color: #1e293b;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #334155;
+    }
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+      color: #334155;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      font-size: 11.5px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    code {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 11.5px;
+    }
+    pre {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 11px;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin-top: 8px;
+      margin-bottom: 14px;
+    }
+    .callout {
+      border-left: 4px solid #0284c7;
+      background-color: #f0f9ff;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 10px;
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+    .callout strong {
+      color: #0369a1;
+    }
+    .success-box {
+      border-left: 4px solid #10b981;
+      background-color: #ecfdf5;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 10px;
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+    .success-box strong {
+      color: #047857;
+    }
+    .grid {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 14px;
+    }
+    .card {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px;
+      background: #ffffff;
+    }
+    .card h4 {
+      margin: 0 0 6px 0;
+      font-size: 13px;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="badge">FanCode Engineering Assessment</div>
+    <h1>Live Sports Match Data Aggregator</h1>
+    <div class="subtitle">Comprehensive System Documentation & Technical Specification</div>
+    <div style="max-width: 500px; margin: 0 auto; text-align: left; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px;">
+      <p style="margin: 4px 0;"><strong>Technology Stack:</strong> Spring Boot 3.3.5, Java 21 LTS, Spring Data JPA</p>
+      <p style="margin: 4px 0;"><strong>Persistence:</strong> Persistent Embedded H2 Database (File Mode)</p>
+      <p style="margin: 4px 0;"><strong>Test Suite:</strong> 11/11 Automated Tests Passing (100% Success)</p>
+      <p style="margin: 4px 0;"><strong>Deployment:</strong> Multi-Stage Docker & Standalone Maven Wrapper</p>
+    </div>
+    <div class="meta">
+      Author: Deepak Agrawal<br>
+      Repository: <code>C:\Users\Deepak\OneDrive\Desktop\fancode-aggregator</code><br>
+      Date: November 2026
+    </div>
+  </div>
+
+  <!-- CHAPTER 1: OVERVIEW & ARCHITECTURE -->
+  <div class="page">
+    <h2>1. Executive Summary & System Overview</h2>
+    <p>
+      The <strong>Live Sports Match Data Aggregator</strong> is an enterprise-grade backend service engineered to ingest live cricket match data concurrently from two distinct sports data providers and expose a unified, consistent, and highly performant set of client read APIs.
+    </p>
+
+    <div class="callout">
+      <strong>Core Challenge:</strong> Real-world sports data feeds suffer from network retries, transmission delays, duplicate messages, out-of-order packets, commentary corrections, and independent numbering systems. The aggregator resolves these complexities without ever computing runs or interpreting commentary text.
+    </div>
+
+    <h3>High-Level Architecture</h3>
+    <pre>
+  +----------------------+                      +----------------------+
+  |   Provider A (Push)  |                      |   Provider B (Poll)  |
+  |  Webhook Ingestion   |                      |  HTTP Scheduled/Pull |
+  +----------+-----------+                      +----------+-----------+
+             |                                             |
+             | POST /api/webhooks/provider-a               | GET /provider/matches/...
+             v                                             v
+  +--------------------------------------------------------------------+
+  |                     Aggregator Core Engine                         |
+  |  - Delivery Idempotency Guard (provider, deliveryId)               |
+  |  - Snapshot Strict Monotonicity Guard (sequence, revision)         |
+  |  - Commentary Revision Engine & Sequence Sorter                    |
+  |  - Deterministic Precedence Resolver (Primary vs Secondary)        |
+  +--------------------------------------------------------------------+
+             |                                             |
+             v                                             v
+  +----------------------+                      +----------------------+
+  | Persistent Storage   |                      |   Client Read APIs   |
+  | H2 File Mode (Disk)  |                      |  - GET /matches      |
+  | - matches            |                      |  - GET /matches/:id  |
+  | - snapshots          |                      |  - GET /score        |
+  | - commentaries       |                      |  - GET /commentary   |
+  | - deliveries         |                      +----------------------+
+  +----------------------+
+    </pre>
+
+    <h3>Key Engineering Principles</h3>
+    <ul>
+      <li><strong>Opaque Snapshot Interpretation:</strong> Scores (e.g. <code>98/2</code>) and overs (e.g. <code>"12.4"</code>) are treated as authoritative snapshot facts from the provider, never computed by parsing commentary.</li>
+      <li><strong>Lexicographical Monotonicity:</strong> A score snapshot <code>(sequence, revision)</code> is applied if and only if it is strictly greater than the currently stored snapshot for that provider.</li>
+      <li><strong>Commentary Sequence Independence:</strong> Commentary display order is governed strictly by the ball's <code>sequence</code> number, not packet arrival time. Out-of-order deliveries and missing sequence gaps are seamlessly accommodated without delaying score updates.</li>
+      <li><strong>Cross-Provider Isolation:</strong> Sequence numbers are strictly provider-specific and are <strong>never</strong> compared across providers.</li>
+    </ul>
+  </div>
+
+  <!-- CHAPTER 2: DATA MODEL -->
+  <div class="page">
+    <h2>2. Domain Model & Relational Schema</h2>
+    <p>
+      The persistence model decouples provider streams into independent storage partitions, merging them on-demand via deterministic precedence.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Table Name</th>
+          <th>Primary Key</th>
+          <th>Key Fields & Constraints</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>matches</code></td>
+          <td><code>match_id</code> (VARCHAR)</td>
+          <td><code>status</code>, <code>active_provider</code>, <code>updated_at</code></td>
+          <td>Tracks canonical match identity (<code>match-1001</code>) and high-level status.</td>
+        </tr>
+        <tr>
+          <td><code>provider_deliveries</code></td>
+          <td><code>id</code> (BIGINT)</td>
+          <td><code>provider</code>, <code>delivery_id</code><br><strong>UNIQUE:</strong> <code>(provider, delivery_id)</code></td>
+          <td>Fast-path deduplication table ensuring push webhook idempotency.</td>
+        </tr>
+        <tr>
+          <td><code>provider_snapshots</code></td>
+          <td><code>id</code> (BIGINT)</td>
+          <td><code>sequence_num</code>, <code>revision_num</code>, <code>runs</code>, <code>wickets</code>, <code>overs</code><br><strong>UNIQUE:</strong> <code>(match_id, provider)</code></td>
+          <td>Stores the latest validated scoreboard snapshot for each provider independently.</td>
+        </tr>
+        <tr>
+          <td><code>provider_commentaries</code></td>
+          <td><code>id</code> (BIGINT)</td>
+          <td><code>ball_id</code>, <code>sequence_num</code>, <code>revision_num</code>, <code>text</code><br><strong>UNIQUE:</strong> <code>(match_id, provider, ball_id)</code><br><strong>INDEX:</strong> <code>(match_id, provider, sequence_num)</code></td>
+          <td>Stores ball-by-ball commentary items, preserving stable ball identity for corrections.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Monotonicity & Ordering Contracts</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>Scoreboard Snapshot Rule</h4>
+        <p>A snapshot candidate <code>(s2, r2)</code> is strictly newer than stored <code>(s1, r1)</code> iff:</p>
+        <code>(s2 &gt; s1) || (s2 == s1 &amp;&amp; r2 &gt; r1)</code>
+        <p style="margin-top: 6px; font-size: 11px; color: #64748b;">Example: (5, 1) &gt; (4, 9); (4, 2) &gt; (4, 1); (4, 1) is NOT newer than (4, 1).</p>
+      </div>
+      <div class="card">
+        <h4>Commentary Revision Rule</h4>
+        <p>A ball update with <code>ballId</code> is accepted iff incoming revision exceeds stored revision:</p>
+        <code>candidate.revision &gt; stored.revision</code>
+        <p style="margin-top: 6px; font-size: 11px; color: #64748b;">Equal or lower revisions leave stored text untouched. Total ball count remains exactly 1.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 3: INGESTION PATHWAYS -->
+  <div class="page">
+    <h2>3. Ingestion Pipelines: Push vs. Poll</h2>
+
+    <h3>Provider A: Push Webhook Pipeline</h3>
+    <p>
+      Provider A delivers real-time events via <code>POST /api/webhooks/provider-a</code>. Each message is tagged with an envelope containing <code>deliveryId</code>, <code>occurredAt</code>, and optional <code>snapshot</code> and <code>commentary</code> payloads.
+    </p>
+    <ul>
+      <li><strong>Idempotency Verification:</strong> The service queries <code>provider_deliveries</code>. If the <code>deliveryId</code> already exists, processing immediately terminates with HTTP 200 and body <code>{"status": "duplicate_ignored"}</code>. Stored data is unchanged.</li>
+      <li><strong>Atomic Record &amp; Process:</strong> If new, the delivery ID is persisted, the canonical match ID (<code>match-1001</code>) is resolved from <code>a-match-1001</code>, and snapshots and commentary are evaluated under a transactional lock.</li>
+    </ul>
+
+    <h3>Provider B: Polling Pipeline</h3>
+    <p>
+      Provider B exposes pull endpoints: <code>GET /provider/matches/:id/score</code> and <code>GET /provider/matches/:id/commentary</code>.
+    </p>
+    <ul>
+      <li><strong>Scheduled Execution:</strong> Background task runs periodically (default 5000ms), querying Provider B score and commentary.</li>
+      <li><strong>Fault Tolerance &amp; Graceful Degradation:</strong> If Provider B responds with HTTP 503, connection timeouts, or socket failures, the poller catches the exception cleanly, logs an alert, and <strong>preserves the last good stored state</strong>. The client read API continues serving without disruption.</li>
+      <li><strong>Deduplication Without Delivery IDs:</strong> Repeated identical polls evaluate against stored snapshot tuples and commentary revisions. Because incoming revisions equal existing revisions, no duplicate records or state changes occur.</li>
+    </ul>
+
+    <h3>Push Worked Scenario Execution Trace</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Message</th>
+          <th>Payload Ingested</th>
+          <th>Scoreboard State</th>
+          <th>Commentary State</th>
+          <th>Outcome / Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><code>d1</code></td>
+          <td>Snap (1, 1)=4/0 (0.4), Ball b1 rev 1 "four"</td>
+          <td>4/0 (0.4)</td>
+          <td>[b1]</td>
+          <td>Initial baseline applied.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><code>d2</code></td>
+          <td>Snap (2, 1)=4/1 (0.5), Ball b2 rev 1 "out"</td>
+          <td>4/1 (0.5)</td>
+          <td>[b1, b2]</td>
+          <td>(2, 1) &gt; (1, 1). Score and new ball applied.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><code>d2</code></td>
+          <td>Snap (2, 1)=4/1 (0.5), Ball b2 rev 1 "out"</td>
+          <td>4/1 (0.5)</td>
+          <td>[b1, b2]</td>
+          <td><strong>duplicate_ignored</strong>. Same deliveryId. State unchanged.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><code>d4</code></td>
+          <td>Snap (4, 1)=10/1 (1.1), Ball b4 rev 1 "six"</td>
+          <td>10/1 (1.1)</td>
+          <td>[b1, b2, b4]</td>
+          <td>Out of order arrival. Score updated immediately. Gap permitted.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><code>d3</code></td>
+          <td>Snap (3, 1)=8/1 (1.0), Ball b3 rev 1 "two runs"</td>
+          <td>10/1 (1.1)</td>
+          <td>[b1, b2, b3, b4]</td>
+          <td>Snap (3, 1) &lt; (4, 1) ignored. Late ball b3 inserted in order!</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><code>d5</code></td>
+          <td>Snap (4, 1)=10/1 (1.1), Ball b2 rev 2 "out, review stays out"</td>
+          <td>10/1 (1.1)</td>
+          <td>[b1, b2*, b3, b4]</td>
+          <td>Snap (4, 1) == (4, 1) ignored. Ball b2 rev 2 &gt; rev 1: text corrected!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHAPTER 4: CLIENT APIS & PRECEDENCE -->
+  <div class="page">
+    <h2>4. Client Read APIs &amp; Precedence Rules</h2>
+
+    <h3>Deterministic Precedence Rule</h3>
+    <p>
+      The service is configured with a Primary Provider (<code>app.primary-provider = provider-a</code>).
+    </p>
+    <ul>
+      <li>When client requests match scores or commentary, the aggregator inspects the primary provider's partition first.</li>
+      <li>If Provider A has a valid snapshot, Provider A's score and commentary are served.</li>
+      <li>If Provider A has not published data or is in an uninitialized state, the system automatically falls back to Provider B.</li>
+      <li><strong>Crucial Invariant:</strong> Commentary is never merged or interweaved between providers. It always reflects the single active provider, sorted chronologically by sequence number.</li>
+    </ul>
+
+    <h3>Client API Endpoints</h3>
+
+    <div class="card" style="margin-bottom: 10px;">
+      <h4>1. List All Matches: <code>GET /matches</code></h4>
+      <p>Returns summary list of all known matches with current status and summary score.</p>
+      <pre>HTTP/1.1 200 OK
+[
+  {
+    "id": "match-1001",
+    "status": "live",
+    "summaryScore": "10/1 (1.1)"
+  }
+]</pre>
+    </div>
+
+    <div class="card" style="margin-bottom: 10px;">
+      <h4>2. Get Match Scoreboard: <code>GET /matches/:id/score</code></h4>
+      <p>Returns current score snapshot from the winning provider.</p>
+      <pre>HTTP/1.1 200 OK
+{
+  "status": "live",
+  "innings": 1,
+  "runs": 10,
+  "wickets": 1,
+  "overs": "1.1",
+  "scoreFormatted": "10/1",
+  "provider": "provider-a"
+}</pre>
+    </div>
+
+    <div class="card" style="margin-bottom: 10px;">
+      <h4>3. Get Match Commentary: <code>GET /matches/:id/commentary</code></h4>
+      <p>Returns ball-by-ball commentary strictly ordered by sequence number.</p>
+      <pre>HTTP/1.1 200 OK
+[
+  { "ballId": "b1", "sequence": 1, "revision": 1, "text": "four" },
+  { "ballId": "b2", "sequence": 2, "revision": 2, "text": "out, review stays out" },
+  { "ballId": "b3", "sequence": 3, "revision": 1, "text": "two runs" },
+  { "ballId": "b4", "sequence": 4, "revision": 1, "text": "six" }
+]</pre>
+    </div>
+  </div>
+
+  <!-- CHAPTER 5: AUTOMATED TEST SUITE & VERIFICATION -->
+  <div class="page">
+    <h2>5. Automated Test Suite &amp; Verification</h2>
+    <p>
+      The automated test suite contains 11 comprehensive tests in JUnit 5 and MockMvc, rigorously covering every specification requirement.
+    </p>
+
+    <div class="success-box">
+      <strong>Verification Result:</strong> 11 tests executed, 11 passed, 0 failures, 0 errors. All test runs execute in under 18 seconds via Maven.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Test Name</th>
+          <th>Target Requirement</th>
+          <th>Verification Logic</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>testOrderedIngestion</code></td>
+          <td>Ordered Delivery</td>
+          <td>Ingests d1 then d2. Verifies score transitions 4/0 -&gt; 4/1 and commentary has 2 items in sequence.</td>
+        </tr>
+        <tr>
+          <td><code>testDuplicatePushDelivery</code></td>
+          <td>Duplicate Push Delivery</td>
+          <td>Sends d1 twice. Second request returns <code>duplicate_ignored</code>. DB ball count stays exactly 1.</td>
+        </tr>
+        <tr>
+          <td><code>testOlderSnapshotWithLateBallReturnedInSequence</code></td>
+          <td>Out-of-Order &amp; Gap Handling</td>
+          <td>d4 arrives before d3. Verifies score 10/1 is preserved when d3 arrives, while ball b3 is inserted between b2 and b4.</td>
+        </tr>
+        <tr>
+          <td><code>testCommentaryCorrection</code></td>
+          <td>Commentary Revision</td>
+          <td>Ball b2 rev 2 replaces text "out" with "out, review stays out". Sending rev 1 afterwards is ignored.</td>
+        </tr>
+        <tr>
+          <td><code>testRepeatedIdenticalPolls</code></td>
+          <td>Poll Idempotency</td>
+          <td>Polls Provider B multiple times in "unchanged" state. Zero duplicate balls created in the database.</td>
+        </tr>
+        <tr>
+          <td><code>testStalePoll</code></td>
+          <td>Stale Poll Rejection</td>
+          <td>Polls sequence 16 (104/2), then polls stale sequence 10 (80/1). Score remains 104/2.</td>
+        </tr>
+        <tr>
+          <td><code>testProviderErrorLeavesLastGoodState</code></td>
+          <td>Provider Fault Tolerance</td>
+          <td>Simulates HTTP 503 from Provider B. Poller catches error gracefully, score remains 98/2.</td>
+        </tr>
+        <tr>
+          <td><code>testRestartAgainstSameDatabase</code></td>
+          <td>Durable Disk Persistence</td>
+          <td>Populates DB in Application Context 1, shuts it down completely, boots Application Context 2 against disk file, and verifies full state recovery.</td>
+        </tr>
+        <tr>
+          <td><code>testFullWorkedPushScenario</code></td>
+          <td>Worked Spec Example</td>
+          <td>Executes full 6-step sequence (d1, d2, d2, d4, d3, d5). Final score is 10/1, commentary has all 4 balls.</td>
+        </tr>
+        <tr>
+          <td><code>testUnknownMatchReturns404</code></td>
+          <td>Error Handling Contract</td>
+          <td>Requests for unknown match IDs return HTTP 404 with structured JSON.</td>
+        </tr>
+        <tr>
+          <td><code>testWebhookAndClientReadFlow</code></td>
+          <td>End-to-End Webhook API</td>
+          <td>Validates HTTP POST /api/webhooks/provider-a and subsequent GET requests via Spring MockMvc.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Execution Instructions</h3>
+    <pre>
+# Run all automated tests:
+.\mvnw.cmd test
+
+# Run application locally:
+.\mvnw.cmd spring-boot:run
+
+# Run in containerized environment:
+docker compose up --build
+    </pre>
+  </div>
+
+</body>
+</html>
