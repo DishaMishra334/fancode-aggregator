@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  fancode-aggregator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fancode-aggregator
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - APP_PRIMARY_PROVIDER=provider-a
+      - APP_POLLER_ENABLED=false
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/matches || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
