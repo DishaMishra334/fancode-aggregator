@@ -55,22 +55,24 @@ From the Swagger UI, you can click **"Try it out"** on:
 
 ## Quick Start Guide
 
-### 1. Run via Docker Compose (Recommended for reviewers)
+### 1. Run via Docker Compose (Preferred Setup)
 
 ```bash
-# Build and run container
+# Build and start container
 docker compose up --build
 ```
-The server will start on port `8080`. Persistent database files are mounted to `./data`.
+- **Service Port:** `http://localhost:8080`
+- **Swagger UI:** `http://localhost:8080/swagger-ui/index.html`
+- **Data Persistence:** Database files are stored on disk at `./data`.
 
-To shut down:
+To stop the container:
 ```bash
 docker compose down
 ```
 
 ---
 
-### 2. Run Natively via Maven Wrapper
+### 2. Run Natively via Maven Wrapper (Local Setup)
 
 #### Linux / macOS:
 ```bash
@@ -81,6 +83,39 @@ docker compose down
 ```powershell
 .\mvnw.cmd clean spring-boot:run
 ```
+
+---
+
+## Assumptions
+
+1. **Cricket Engine Scope**: The system does **not** compute runs, wickets, or overs from commentary text. Score snapshots (`runs/wickets`, `overs`) are authoritative facts emitted by providers and stored as-is.
+2. **Provider Numbering Independence**: Provider A and Provider B number their sequences independently. Those numbers are **not comparable across providers** under any circumstance.
+3. **Ball Identity Stability**: Logical balls have stable `ballId` values (e.g., `inn1-12.4`). A provider commentary correction retains the same `ballId` with a higher `revision` counter.
+4. **Single-Process Durability**: A single local process backed by an embedded file-based relational database is a complete solution. Stored data survives JVM restarts and system reboots.
+5. **Provider Failure Tolerance**: Temporary provider outages (such as HTTP 503 from Provider B) leave the last good stored match available to clients without data loss or exceptions.
+
+---
+
+## Key Design Decisions
+
+1. **Embedded File-Based Database (H2 File Mode)**:
+   - Configured as `jdbc:h2:file:./data/fancodedb;DB_CLOSE_DELAY=-1`.
+   - **Why**: Zero installation friction for reviewers (no external PostgreSQL/MySQL daemon required) while guaranteeing full ACID transactions, compound unique constraints, and disk persistence across restarts.
+2. **Dual-Path Idempotency Model**:
+   - **Push Path**: Fast deduplication via compound unique index on `(provider, delivery_id)`. Immediate return of `duplicate_ignored` with zero database modifications.
+   - **Poll Path**: Invariant checks on snapshot `(sequence, revision)` and commentary `revision`. Repeated identical poll responses create zero duplicate records.
+3. **Lexicographical Monotonicity Guard**:
+   - Snapshot candidate `(s2, r2)` is applied iff `(s2 > s1) || (s2 == s1 && r2 > r1)`.
+   - Late or out-of-order snapshots (e.g. sequence 3 arriving after sequence 4) are safely rejected without discarding late commentary balls.
+4. **Sequence-Gap Tolerant Commentary**:
+   - Scores are updated immediately upon snapshot arrival; commentary does not block scores.
+   - Client commentary is strictly sorted by `sequence ASC`. Late balls automatically slot into their correct sequential position.
+5. **Deterministic Precedence with Provider Isolation**:
+   - Configured primary provider (`provider-a`) is served first. If primary data is absent, secondary (`provider-b`) is served.
+   - Commentary follows the active provider's stream exclusively and is never interweaved.
+6. **Zero-Setup Verification via Swagger & Docker**:
+   - SpringDoc OpenAPI 3.0 provides a web UI at `/swagger-ui/index.html` for immediate browser testing.
+   - Multi-stage Docker build ensures any reviewer can build and run with zero host dependencies.
 
 ---
 
