@@ -178,3 +178,4 @@ public class ProviderSnapshotEntity {
         this.updatedAt = updatedAt;
     }
 }
+

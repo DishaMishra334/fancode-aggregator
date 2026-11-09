@@ -233,3 +233,4 @@ In a live cricket architecture, reads outnumber writes by orders of magnitude (m
 3. **Push to Clients via Server-Sent Events (SSE) / WebSockets**:
    - Rather than having millions of mobile apps polling `/matches/:id/score` every 2 seconds, establish persistent SSE connections.
    - When an aggregator updates a match score, publish an event to Redis Pub/Sub, which fans out to connected edge servers and broadcasts the delta to client devices instantly.
+

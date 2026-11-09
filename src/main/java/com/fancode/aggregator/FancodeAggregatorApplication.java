@@ -12,3 +12,4 @@ public class FancodeAggregatorApplication {
         SpringApplication.run(FancodeAggregatorApplication.class, args);
     }
 }
+

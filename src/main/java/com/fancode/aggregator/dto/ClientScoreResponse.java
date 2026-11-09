@@ -12,3 +12,4 @@ public record ClientScoreResponse(
     String scoreFormatted,
     String provider
 ) {}
+

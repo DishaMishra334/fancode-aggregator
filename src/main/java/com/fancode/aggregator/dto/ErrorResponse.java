@@ -13,3 +13,4 @@ public record ErrorResponse(
         return new ErrorResponse(message, status, Instant.now());
     }
 }
+

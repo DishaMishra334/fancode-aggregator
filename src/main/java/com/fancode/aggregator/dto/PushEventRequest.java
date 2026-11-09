@@ -12,3 +12,4 @@ public record PushEventRequest(
     SnapshotDto snapshot,
     CommentaryDto commentary
 ) {}
+

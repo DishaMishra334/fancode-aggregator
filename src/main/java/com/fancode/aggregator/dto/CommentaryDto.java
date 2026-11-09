@@ -14,3 +14,4 @@ public record CommentaryDto(
     String text,
     Instant occurredAt
 ) {}
+

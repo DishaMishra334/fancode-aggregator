@@ -11,3 +11,4 @@ public interface ProviderDeliveryRepository extends JpaRepository<ProviderDelive
     boolean existsByProviderAndDeliveryId(String provider, String deliveryId);
     Optional<ProviderDeliveryEntity> findByProviderAndDeliveryId(String provider, String deliveryId);
 }
+

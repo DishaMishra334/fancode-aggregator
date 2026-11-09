@@ -11,3 +11,4 @@ public record MatchDetailResponse(
     ClientScoreResponse score,
     Instant updatedAt
 ) {}
+

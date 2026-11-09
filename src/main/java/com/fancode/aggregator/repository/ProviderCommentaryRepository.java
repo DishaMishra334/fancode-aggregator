@@ -12,3 +12,4 @@ public interface ProviderCommentaryRepository extends JpaRepository<ProviderComm
     Optional<ProviderCommentaryEntity> findByMatchIdAndProviderAndBallId(String matchId, String provider, String ballId);
     List<ProviderCommentaryEntity> findByMatchIdAndProviderOrderBySequenceAsc(String matchId, String provider);
 }
+

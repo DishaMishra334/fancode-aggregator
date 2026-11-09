@@ -8,3 +8,4 @@ public record PollScoreResponse(
     String providerMatchId,
     SnapshotDto snapshot
 ) {}
+

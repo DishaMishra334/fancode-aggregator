@@ -62,3 +62,4 @@ public class ProviderDeliveryEntity {
         this.receivedAt = receivedAt;
     }
 }
+

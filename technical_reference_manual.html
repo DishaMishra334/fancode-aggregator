@@ -369,8 +369,10 @@
       <li><code>ErrorResponse</code>: RFC-compliant structured error object.</li>
     </ul>
 
-    <h3>Exceptions &amp; Handlers</h3>
+    <h3>Exceptions &amp; Configuration</h3>
     <ul>
+      <li><strong>`OpenApiConfig`</strong>: Configures OpenAPI 3.0 metadata and global CORS filter enabling interactive Swagger UI at <code>http://localhost:8080/swagger-ui/index.html</code>.</li>
+      <li><strong>`DataInitializer`</strong>: <code>CommandLineRunner</code> bean automatically seeding canonical match <code>match-1001</code> upon application boot.</li>
       <li><strong>`ResourceNotFoundException`</strong>: Unchecked exception thrown when querying non-existent match IDs.</li>
       <li><strong>`GlobalExceptionHandler`</strong>: Annotated with <code>@RestControllerAdvice</code>. Intercepts <code>ResourceNotFoundException</code> and returns HTTP 404 with structured JSON.</li>
     </ul>
@@ -466,3 +468,4 @@
 
 </body>
 </html>
+

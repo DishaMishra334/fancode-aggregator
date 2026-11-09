@@ -14,3 +14,4 @@ public record ClientCommentaryItemResponse(
     String text,
     Instant occurredAt
 ) {}
+

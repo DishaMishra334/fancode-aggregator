@@ -187,7 +187,17 @@ All DTOs are implemented as Java 21 `record` types for immutability, thread-safe
 - Defines primary provider priority (`app.primary-provider = provider-a`).
 - Configures poller interval and target endpoints.
 
-### 7.2 `GlobalExceptionHandler` (`com.fancode.aggregator.exception`)
+### 7.2 `OpenApiConfig` (`com.fancode.aggregator.config`)
+- Configures OpenAPI 3.0 specification metadata (Title, Version, Description, Contact).
+- Sets up global CORS configuration (`addCorsMappings`) to permit cross-origin requests from any browser client or frontend dashboard.
+- Hosts interactive Swagger UI at `http://localhost:8080/swagger-ui/index.html`.
+
+### 7.3 `DataInitializer` (`com.fancode.aggregator.config`)
+- Implements Spring Boot `CommandLineRunner`.
+- Automatically seeds the default canonical match `match-1001` with status `scheduled` on first startup if not already present.
+- Guarantees that immediate calls to `GET /matches` or Swagger UI display the initial match cleanly without 404 errors.
+
+### 7.4 `GlobalExceptionHandler` (`com.fancode.aggregator.exception`)
 - Annotated with `@RestControllerAdvice`.
 - Catches `ResourceNotFoundException` and returns HTTP 404 with structured JSON.
 - Catches `IllegalArgumentException` and returns HTTP 400.
@@ -210,3 +220,4 @@ All DTOs are implemented as Java 21 `record` types for immutability, thread-safe
 | `ClientApiControllerTest` | `testUnknownMatchReturns404()` | Structured 404 on invalid match ID | **PASS** |
 | `ClientApiControllerTest` | `testWebhookAndClientReadFlow()` | End-to-end webhook POST and client GET | **PASS** |
 | `DatabaseRestartPersistenceTest` | `testRestartAgainstSameDatabase()` | Complete data recovery across JVM reboots | **PASS** |
+

@@ -26,6 +26,23 @@ A high-performance, resilient Spring Boot service that ingests live cricket matc
 - **Zero-Dependency Execution**:
   - Multi-stage `Dockerfile` and `docker-compose.yml` for containerized runs.
   - Embedded Maven wrapper (`./mvnw` / `mvnw.cmd`) for native runs.
+- **Interactive Swagger UI / OpenAPI 3.0**:
+  - Full interactive browser UI at `http://localhost:8080/swagger-ui/index.html` to execute and test all APIs directly.
+
+---
+
+## Interactive Swagger / OpenAPI Documentation
+
+Once the server is running, you can test and explore all endpoints directly in your browser:
+
+- **Interactive Swagger UI**: [**`http://localhost:8080/swagger-ui/index.html`**](http://localhost:8080/swagger-ui/index.html) *(or `http://localhost:8080/swagger-ui.html`)*
+- **OpenAPI 3.0 JSON Spec**: [**`http://localhost:8080/v3/api-docs`**](http://localhost:8080/v3/api-docs)
+
+From the Swagger UI, you can click **"Try it out"** on:
+1. **Client Read APIs**: View live scores, matches list, and commentary in sequence.
+2. **Push Ingestion**: Send custom webhook deliveries with snapshots and commentary.
+3. **Mock Provider A**: Click `POST /mock/provider-a/play` to run the entire 6-step timeline with a single click.
+4. **Mock Provider B**: Toggle scenarios (`newer_score`, `new_ball`, `error_503`, `stale`) and trigger poll cycles.
 
 ---
 
@@ -281,3 +298,4 @@ curl -X POST http://localhost:8080/mock/provider-b/poll?matchId=b-match-1001
 ### If the process crashes around acknowledgement:
 - **Crash before DB commit**: Delivery was not recorded. Provider will retry with the same `deliveryId`. When the aggregator recovers, it processes the event normally.
 - **Crash after DB commit but before HTTP response**: Delivery was already persisted. When the provider retries with the same `deliveryId`, the aggregator hits the idempotency guard, returns `duplicate_ignored`, and makes zero duplicate modifications to the database.
+

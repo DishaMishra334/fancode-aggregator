@@ -12,3 +12,4 @@ public interface ProviderSnapshotRepository extends JpaRepository<ProviderSnapsh
     Optional<ProviderSnapshotEntity> findByMatchIdAndProvider(String matchId, String provider);
     List<ProviderSnapshotEntity> findByMatchId(String matchId);
 }
+

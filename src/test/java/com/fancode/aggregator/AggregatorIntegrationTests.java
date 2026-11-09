@@ -315,3 +315,4 @@ public class AggregatorIntegrationTests {
         assertThat(commentary.get(3).ballId()).isEqualTo("b4");
     }
 }
+
