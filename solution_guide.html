@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FanCode Live Sports Match Data Aggregator - Working Solution, Setup, Run & Verification Guide</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      font-size: 11.5px;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .cover {
+      page-break-after: always;
+      padding: 50px 30px;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      margin-top: 25px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    }
+    .cover h1 {
+      font-size: 26px;
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .cover .subtitle {
+      font-size: 15px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .cover .badge {
+      display: inline-block;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+    .page {
+      page-break-after: always;
+      padding-top: 8px;
+    }
+    .page:last-child {
+      page-break-after: avoid;
+    }
+    h2 {
+      font-size: 15px;
+      color: #0f172a;
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 4px;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 12.5px;
+      color: #1e293b;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 8px;
+      padding-left: 18px;
+    }
+    li {
+      margin-bottom: 4px;
+      color: #334155;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      font-size: 10.5px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 5px 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    code {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 10.5px;
+    }
+    pre {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 10px;
+      line-height: 1.4;
+      overflow-x: auto;
+      margin-top: 6px;
+      margin-bottom: 10px;
+    }
+    .callout {
+      border-left: 3px solid #0284c7;
+      background-color: #f0f9ff;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+    .callout strong {
+      color: #0369a1;
+    }
+    .success-box {
+      border-left: 3px solid #10b981;
+      background-color: #ecfdf5;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+    .success-box strong {
+      color: #047857;
+    }
+    .grid {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .card {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px;
+      background: #ffffff;
+    }
+    .card h4 {
+      margin: 0 0 4px 0;
+      font-size: 12px;
+      color: #0f172a;
+    }
+    .badge-pass {
+      display: inline-block;
+      background: #10b981;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="badge">FanCode Backend Engineering Assessment</div>
+    <h1>Live Sports Match Data Aggregator</h1>
+    <div class="subtitle">Complete Working Solution: Setup, Run &amp; Verification Guide</div>
+    <div style="max-width: 520px; margin: 0 auto; text-align: left; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 14px;">
+      <p style="margin: 3px 0;"><strong>Primary Setup:</strong> Docker Compose (Containerized, Zero Local Dependencies)</p>
+      <p style="margin: 3px 0;"><strong>Secondary Setup:</strong> Native Maven Wrapper (Java 21 LTS)</p>
+      <p style="margin: 3px 0;"><strong>Interactive Tool:</strong> SpringDoc OpenAPI 3.0 / Swagger UI (Browser Testing)</p>
+      <p style="margin: 3px 0;"><strong>Automated Tests:</strong> 11/11 Tests Passing (Unit, Integration &amp; Crash Recovery)</p>
+      <p style="margin: 3px 0;"><strong>Durable Persistence:</strong> File-based H2 Database surviving JVM restarts</p>
+    </div>
+    <div style="font-size: 12px; color: #64748b; margin-top: 30px; line-height: 1.6;">
+      Author: Deepak Agrawal &bull; Date: November 2026<br>
+      Repository Path: <code>C:\Users\Deepak\OneDrive\Desktop\fancode-aggregator</code>
+    </div>
+  </div>
+
+  <!-- SECTION 1: SYSTEM SETUP & RUN -->
+  <div class="page">
+    <h2>1. Setup &amp; Execution Guide</h2>
+
+    <p>
+      The service is completely self-contained. A reviewer can launch and test the entire aggregator, both mock providers, the persistent database, and the interactive Swagger UI using either Docker or the Maven wrapper.
+    </p>
+
+    <h3>Option A: Docker-Based Setup (Preferred &amp; Recommended)</h3>
+    <p>
+      Uses a multi-stage Docker build with Eclipse Temurin Java 21 Alpine JRE. Requires zero Java or Maven installation on the host machine.
+    </p>
+
+    <pre>
+# 1. Navigate to the project directory:
+cd C:\Users\Deepak\OneDrive\Desktop\fancode-aggregator
+
+# 2. Build image and start the container:
+docker compose up --build
+
+# (Optional: Run in background mode)
+docker compose up -d --build
+    </pre>
+
+    <div class="success-box">
+      <strong>Container Specifications:</strong>
+      <ul>
+        <li>Exposes HTTP port <code>8080</code> on <code>http://localhost:8080</code>.</li>
+        <li>Mounts host directory <code>./data</code> to <code>/app/data</code> for durable, crash-proof H2 persistence.</li>
+        <li>Includes container health checks querying <code>wget -qO- http://localhost:8080/matches</code>.</li>
+      </ul>
+    </div>
+
+    <pre>
+# To stop and remove the container:
+docker compose down
+    </pre>
+
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 14px 0;">
+
+    <h3>Option B: Native Local Setup via Maven Wrapper</h3>
+    <p>
+      If running natively on a host machine with Java 21 installed, use the included Maven wrapper without installing Maven:
+    </p>
+
+    <pre>
+# On Windows (PowerShell / Command Prompt):
+.\mvnw.cmd clean spring-boot:run
+
+# On Linux / macOS:
+./mvnw clean spring-boot:run
+    </pre>
+
+    <h3>Active Service Endpoints</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Resource</th>
+          <th>URL</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Interactive Swagger UI</strong></td>
+          <td><code>http://localhost:8080/swagger-ui/index.html</code></td>
+          <td>Full browser UI to execute every API, trigger scenarios, and view live results.</td>
+        </tr>
+        <tr>
+          <td><strong>OpenAPI 3.0 JSON Spec</strong></td>
+          <td><code>http://localhost:8080/v3/api-docs</code></td>
+          <td>Machine-readable OpenAPI definition.</td>
+        </tr>
+        <tr>
+          <td><strong>Client Matches API</strong></td>
+          <td><code>http://localhost:8080/matches</code></td>
+          <td>Summary list of matches with status and formatted scores.</td>
+        </tr>
+        <tr>
+          <td><strong>H2 Database Console</strong></td>
+          <td><code>http://localhost:8080/h2-console</code></td>
+          <td>Database browser (JDBC URL: <code>jdbc:h2:file:./data/fancodedb</code>, User: <code>sa</code>).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: VERIFICATION & WALKTHROUGH -->
+  <div class="page">
+    <h2>2. Verification &amp; Walkthrough Instructions</h2>
+
+    <p>
+      Follow this verification walkthrough using either the <strong>Swagger UI</strong> in your browser or <strong>curl</strong> in your terminal.
+    </p>
+
+    <h3>Method 1: Interactive Verification via Swagger UI</h3>
+    <ol>
+      <li>Open your web browser and navigate to <strong><code>http://localhost:8080/swagger-ui/index.html</code></strong>.</li>
+      <li>Under <strong>Mock Provider A (Push Simulation)</strong>, expand <code>POST /mock/provider-a/play</code> &rarr; click <strong>Try it out</strong> &rarr; click <strong>Execute</strong>.
+        <br><em>Result:</em> Instantly executes all 6 steps from the FanCode prompt worked scenario. Step 3 confirms <code>duplicate_ignored</code>.
+      </li>
+      <li>Under <strong>Client Read APIs</strong>, expand <code>GET /matches/match-1001/score</code> &rarr; click <strong>Try it out</strong> &rarr; click <strong>Execute</strong>.
+        <br><em>Result:</em> Returns live score <code>10/1</code> in <code>1.1</code> overs.
+      </li>
+      <li>Under <strong>Client Read APIs</strong>, expand <code>GET /matches/match-1001/commentary</code> &rarr; click <strong>Execute</strong>.
+        <br><em>Result:</em> Returns 4 commentary balls sorted chronologically (1, 2, 3, 4). Confirms late ball <code>b3</code> is sorted in position 3 and <code>b2</code> text is updated to revision 2 (<code>"out, review stays out"</code>).
+      </li>
+      <li>Under <strong>Mock Provider B (Poll Simulation)</strong>, expand <code>POST /mock/provider-b/scenario/error_503</code> &rarr; click <strong>Execute</strong>.
+        <br>Then execute <code>POST /mock/provider-b/poll</code>.
+        <br><em>Result:</em> Poller handles the simulated HTTP 503 error gracefully; stored scores and commentary remain completely intact.
+      </li>
+    </ol>
+
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 14px 0;">
+
+    <h3>Method 2: Command-Line Verification via Curl</h3>
+
+    <h4>Step 1: Execute the 6-Step Worked Push Scenario</h4>
+    <pre>curl -X POST "http://localhost:8080/mock/provider-a/play?matchId=a-match-1001"</pre>
+    <p><strong>Response Output:</strong></p>
+    <pre>[
+  {"status":"accepted","deliveryId":"d1","message":"Event processed successfully"},
+  {"status":"accepted","deliveryId":"d2","message":"Event processed successfully"},
+  {"status":"duplicate_ignored","deliveryId":"d2","message":"Delivery ID already processed, ignored as idempotent duplicate"},
+  {"status":"accepted","deliveryId":"d4","message":"Event processed successfully"},
+  {"status":"accepted","deliveryId":"d3","message":"Event processed successfully"},
+  {"status":"accepted","deliveryId":"d5","message":"Event processed successfully"}
+]</pre>
+
+    <h4>Step 2: Verify Scoreboard</h4>
+    <pre>curl -s http://localhost:8080/matches/match-1001/score</pre>
+    <pre>{
+  "status": "live",
+  "innings": 1,
+  "runs": 10,
+  "wickets": 1,
+  "overs": "1.1",
+  "scoreFormatted": "10/1",
+  "provider": "provider-a"
+}</pre>
+
+    <h4>Step 3: Verify Commentary (Strict Sequence Order &amp; In-Place Correction)</h4>
+    <pre>curl -s http://localhost:8080/matches/match-1001/commentary</pre>
+    <pre>[
+  { "ballId": "b1", "sequence": 1, "revision": 1, "text": "four" },
+  { "ballId": "b2", "sequence": 2, "revision": 2, "text": "out, review stays out" },
+  { "ballId": "b3", "sequence": 3, "revision": 1, "text": "two runs" },
+  { "ballId": "b4", "sequence": 4, "revision": 1, "text": "six" }
+]</pre>
+  </div>
+
+  <!-- SECTION 3: AUTOMATED TESTS -->
+  <div class="page">
+    <h2>3. Automated Test Suite (Scenarios &amp; Edge Cases)</h2>
+
+    <p>
+      The test suite contains 11 automated JUnit 5 / SpringBootTest test cases validating every mandatory scenario and edge case:
+    </p>
+
+    <pre>
+# Command to execute full test suite:
+.\mvnw.cmd test
+
+# On Linux / macOS:
+./mvnw test
+    </pre>
+
+    <div class="success-box">
+      <strong>Build &amp; Test Result:</strong> Tests run: 11, Failures: 0, Errors: 0, Skipped: 0 &bull; <strong>BUILD SUCCESS</strong>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Scenario / Edge Case</th>
+          <th>Test Method</th>
+          <th>What is Verified</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Ordered Ingestion</strong></td>
+          <td><code>testOrderedIngestion</code></td>
+          <td>d1 arrives with 4/0 (0.4), then d2 arrives with 4/1 (0.5). Verifies monotonic score progression.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Duplicate Push Delivery</strong></td>
+          <td><code>testDuplicatePushDelivery</code></td>
+          <td>Resending d1 with identical deliveryId returns <code>duplicate_ignored</code>. DB ball count stays exactly 1.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Older Snapshot After Newer; Late Ball in Order</strong></td>
+          <td><code>testOlderSnapshotWithLateBallReturnedInSequence</code></td>
+          <td>d4 arrives with 10/1 (1.1). Later d3 arrives with older snapshot 8/1 (1.0). Score stays 10/1, while late ball b3 is inserted between b2 and b4.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Commentary Correction</strong></td>
+          <td><code>testCommentaryCorrection</code></td>
+          <td>b2 revision 2 replaces text "out" with "out, review stays out". Resending revision 1 afterwards is ignored.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Repeated Identical Polls</strong></td>
+          <td><code>testRepeatedIdenticalPolls</code></td>
+          <td>Polling Provider B multiple times in unchanged state creates zero duplicate balls in the database.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Stale Poll Response</strong></td>
+          <td><code>testStalePoll</code></td>
+          <td>Stored score is 104/2 (seq 16). Provider B returns stale snapshot 80/1 (seq 10). Stored score remains 104/2.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>Provider 503 Fault Tolerance</strong></td>
+          <td><code>testProviderErrorLeavesLastGoodState</code></td>
+          <td>Provider B simulates HTTP 503. Poller catches error gracefully; last good stored state (98/2) remains live.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><strong>Durable Database Restart</strong></td>
+          <td><code>testRestartAgainstSameDatabase</code></td>
+          <td>Spring Context 1 writes match data and closes completely. Spring Context 2 boots from disk file and recovers 100% of data.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><strong>Full Worked Scenario</strong></td>
+          <td><code>testFullWorkedPushScenario</code></td>
+          <td>End-to-end execution of d1, d2, d2 duplicate, d4 gap, d3 delayed, d5 revision 2.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><strong>Unknown Match Handling</strong></td>
+          <td><code>testUnknownMatchReturns404</code></td>
+          <td>Requesting non-existent match ID returns RFC-compliant HTTP 404 with structured error JSON.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td><strong>End-to-End Webhook &amp; Read</strong></td>
+          <td><code>testWebhookAndClientReadFlow</code></td>
+          <td>Validates HTTP POST /api/webhooks/provider-a and subsequent GET requests via Spring MockMvc.</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: ASSUMPTIONS & DESIGN DECISIONS -->
+  <div class="page">
+    <h2>4. Assumptions &amp; Key Design Decisions</h2>
+
+    <h3>Assumptions Documented</h3>
+    <ol>
+      <li><strong>Cricket Engine Scope:</strong> The service does <strong>not</strong> calculate runs, wickets, or overs by interpreting commentary text. Score snapshots (<code>runs/wickets</code>, <code>overs</code>) are authoritative facts emitted by providers and stored as-is.</li>
+      <li><strong>Provider Numbering Independence:</strong> Provider A and Provider B number sequences independently. Those numbers are <strong>never comparable across providers</strong>.</li>
+      <li><strong>Ball Identity Stability:</strong> Each ball has a stable <code>ballId</code> (e.g. <code>inn1-12.4</code>). Corrections retain the same <code>ballId</code> with an incremented <code>revision</code> counter.</li>
+      <li><strong>Single-Process Durability:</strong> A single local process backed by an embedded file-based relational database constitutes a complete solution. Stored data survives JVM restarts and system reboots.</li>
+      <li><strong>Provider Failure Tolerance:</strong> Temporary provider outages (such as HTTP 503 from Provider B) leave the last good stored match available to clients without data loss or exceptions.</li>
+    </ol>
+
+    <h3>Key Architectural Design Decisions</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>1. Embedded File-Based Database (H2)</h4>
+        <p>Configured at <code>jdbc:h2:file:./data/fancodedb;DB_CLOSE_DELAY=-1</code>. Zero installation overhead for reviewers while guaranteeing ACID transactions and persistence across restarts.</p>
+      </div>
+      <div class="card">
+        <h4>2. Two-Tier Idempotency Model</h4>
+        <p><strong>Push:</strong> Fast-path uniqueness on <code>(provider, delivery_id)</code> returning <code>duplicate_ignored</code>.<br><strong>Poll:</strong> Entity-level checks on <code>(sequence, revision)</code>.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h4>3. Lexicographical Monotonicity</h4>
+        <p>Snapshot candidate <code>(s2, r2)</code> is strictly newer than stored <code>(s1, r1)</code> iff:<br><code>(s2 &gt; s1) || (s2 == s1 &amp;&amp; r2 &gt; r1)</code>.<br>Older or identical snapshots are safely rejected.</p>
+      </div>
+      <div class="card">
+        <h4>4. Sequence-Gap Tolerant Commentary</h4>
+        <p>Scores update immediately; commentary does not block scores. Client commentary is sorted by <code>sequence ASC</code>. Late balls automatically slot into position.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h4>5. Deterministic Precedence</h4>
+        <p>Configured primary provider (<code>provider-a</code>) is served first. If primary data is absent, secondary (<code>provider-b</code>) is served. Sequences are never compared across providers.</p>
+      </div>
+      <div class="card">
+        <h4>6. Zero-Setup Docker &amp; Swagger</h4>
+        <p>SpringDoc OpenAPI 3.0 provides an interactive web UI at <code>/swagger-ui/index.html</code>. Multi-stage Docker build ensures execution on any OS with one command.</p>
+      </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+
+    <h3>Webhook Response Contract &amp; Crash Recovery Protocol</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>HTTP Status</th>
+          <th>Response Body</th>
+          <th>Meaning</th>
+          <th>Provider Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><code>200 OK</code></strong></td>
+          <td><code>{"status": "accepted", "deliveryId": "..."}</code></td>
+          <td>Event committed to persistent database.</td>
+          <td>None (Acknowledged).</td>
+        </tr>
+        <tr>
+          <td><strong><code>200 OK</code></strong></td>
+          <td><code>{"status": "duplicate_ignored", "deliveryId": "..."}</code></td>
+          <td>DeliveryId was previously processed. State unchanged.</td>
+          <td>None (Acknowledged).</td>
+        </tr>
+        <tr>
+          <td><strong><code>400 Bad Request</code></strong></td>
+          <td><code>{"error": "...", "status": 400}</code></td>
+          <td>Malformed payload (missing provider or deliveryId).</td>
+          <td>Fix payload; do not retry as-is.</td>
+        </tr>
+        <tr>
+          <td><strong><code>500 Error</code></strong></td>
+          <td><code>{"error": "...", "status": 500}</code></td>
+          <td>Database crash or unhandled error before commit.</td>
+          <td><strong>Retry delivery with the exact same <code>deliveryId</code></strong>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
